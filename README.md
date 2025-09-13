@@ -1,7 +1,7 @@
 # BREADTH-FIRST-SEARCH
 <h1>ExpNo 3 : Implement Breadth First Search Traversal of a Graph</h1> 
-<h3>Name:  </h3>
-<h3>Register Number: </h3>
+<h3>Name: HARSHITHA V  </h3>
+<h3>Register Number: 212223230074</h3>
 <H3>Aim:</H3>
 <p>To Implement Breadth First Search Traversal of a Graph using Python 3.</p>
 <h3>Theory:</h3>
@@ -68,40 +68,60 @@ Now, Queue becomes empty, So, terminate these process of iteration.
 
 </ol>
 
+### PROGRAM
+```
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    order = []
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            visited.add(node)
+            order.append(node)
+            queue.extend(neigh for neigh in graph[node] if neigh not in visited)
+    return order
+
+n, m = map(int, input().split())
+graph = {}
+for _ in range(m):
+    u, v = input().split()
+    if u not in graph:
+        graph[u] = []
+    if v not in graph:
+        graph[v] = []
+    graph[u].append(v)
+    graph[v].append(u)
+
+start = list(graph.keys())[0]
+print(bfs(graph, start))
+
+```
 <hr>
-<h3>Sample Input</h3>
+<h3>Sample Input 1</h3>
 <hr>
-7 9 <BR>
-A B <BR>
-A C <BR>
-A F <BR>
-C E <BR>
-C F <BR>
-C D <BR>
-D E <BR>
-D G <BR>
-G F <BR>
+<img width="58" height="110" alt="image" src="https://github.com/user-attachments/assets/f0e59929-a3f6-4e61-8d83-d40531d96e12" />
+
 <hr>
-<h3>Sample Output</h3>
+<h3>Sample Output 1</h3>
 <hr>
-['A', 'B', 'C', 'F', 'E', 'D', 'G']
+<img width="98" height="22" alt="image" src="https://github.com/user-attachments/assets/5c1adc80-3c03-4795-bced-60bd41403820" />
+
 
 <hr>
 
 <hr>
-<h3>Sample Input</h3>
+<h3>Sample Input 2</h3>
+
+<img width="120" height="175" alt="image" src="https://github.com/user-attachments/assets/ac09eaec-7d64-4d61-b3e7-03ed1b6a55c1" />
+
 <hr>
-5 6 <BR>
-0 1 <BR>
-0 2 <BR>
-1 2 <BR>
-1 3 <BR>
-2 4 <BR>
-3 4 <BR>
+<h3>Sample Output 2</h3>
 <hr>
-<h3>Sample Output</h3>
-<hr>
-['0', '1', '2', '3', '4']
+<img width="209" height="26" alt="image" src="https://github.com/user-attachments/assets/fe8f0a85-7926-48f0-b28a-6516ab376a0f" />
+
 <hr>
 <h3>Result:</h3>
 <hr>
