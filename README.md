@@ -71,32 +71,34 @@ Now, Queue becomes empty, So, terminate these process of iteration.
 ### PROGRAM
 ```
 from collections import deque
+from collections import defaultdict
 
-def bfs(graph, start):
-    visited = set()
-    queue = deque([start])
-    order = []
-    while queue:
-        node = queue.popleft()
-        if node not in visited:
-            visited.add(node)
-            order.append(node)
-            queue.extend(neigh for neigh in graph[node] if neigh not in visited)
-    return order
+def bfs(graph,start,visited,path):
+    queue = deque()
+    path.append(start)
+    queue.append(start)
+    visited[start] = True
+    while len(queue) != 0:
+        tmpnode = queue.popleft()
+        for neighbour in graph[tmpnode]:
+            if not visited[neighbour]:
+                queue.append(neighbour)
+                visited[neighbour] = True
+                path.append(neighbour)
+    return path
 
-n, m = map(int, input().split())
-graph = {}
-for _ in range(m):
+graph = defaultdict(list)
+v,e = map(int,input().split())
+for i in range(e):
     u, v = input().split()
-    if u not in graph:
-        graph[u] = []
-    if v not in graph:
-        graph[v] = []
     graph[u].append(v)
     graph[v].append(u)
 
 start = list(graph.keys())[0]
-print(bfs(graph, start))
+path = []
+visited = defaultdict(bool)
+traversedpath = bfs(graph,start,visited,path)
+print(traversedpath)
 
 ```
 <hr>
@@ -115,12 +117,13 @@ print(bfs(graph, start))
 <hr>
 <h3>Sample Input 2</h3>
 
-<img width="120" height="175" alt="image" src="https://github.com/user-attachments/assets/ac09eaec-7d64-4d61-b3e7-03ed1b6a55c1" />
+<img width="71" height="122" alt="image" src="https://github.com/user-attachments/assets/add35531-a728-4633-8174-d8a4177e202f" />
+
 
 <hr>
 <h3>Sample Output 2</h3>
 <hr>
-<img width="209" height="26" alt="image" src="https://github.com/user-attachments/assets/fe8f0a85-7926-48f0-b28a-6516ab376a0f" />
+<img width="224" height="26" alt="image" src="https://github.com/user-attachments/assets/10f14076-b66a-4fb6-aa35-937f0590c6a0" />
 
 <hr>
 <h3>Result:</h3>
